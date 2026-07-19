@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,7 +6,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>WA Order Generator Demo</title>
 <style>
-body{font-family:Arial,sans-serif;margin:0;background:#f5f5f5}
+/* Ditambahkan padding-bottom supaya konten bawah tidak tertutup tombol fixed */
+body{font-family:Arial,sans-serif;margin:0;background:#f5f5f5;padding-bottom:70px;}
 header{background:#ee4d2d;color:#fff;padding:18px;text-align:center}
 .banner{padding:18px;background:#fff;margin:10px;border-radius:10px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;padding:10px}
@@ -13,8 +15,9 @@ header{background:#ee4d2d;color:#fff;padding:18px;text-align:center}
 .img{height:90px;background:#ffe0d6;border-radius:8px;display:flex;align-items:center;justify-content:center}
 button{background:#ee4d2d;color:#fff;border:none;padding:6px 10px;border-radius:6px;cursor:pointer}
 section{background:#fff;margin:10px;padding:10px;border-radius:10px}
-input,textarea,select{width:100%;padding:8px;margin:6px 0}
-.fixed{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:10px;box-shadow:0 -2px 6px #ccc}
+input,textarea,select{width:100%;padding:8px;margin:6px 0;box-sizing:border-box;} /* Ditambahkan box-sizing supaya input tidak offside */
+.fixed{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:10px;box-shadow:0 -2px 6px #ccc;text-align:center;}
+.fixed button{width:100%;padding:12px;font-size:16px;} /* Tombol dibuat lebih besar & full-width agar lebih responsif */
 </style>
 </head>
 <body>
@@ -39,7 +42,7 @@ input,textarea,select{width:100%;padding:8px;margin:6px 0}
 <option>COD</option>
 <option>Transfer Bank</option>
 </select>
-<p>Transfer: BCA 123456789 a.n. Toko Barokah</p>
+<p>Transfer: BCA 123456789 a.n. Toko Kelontong</p>
 </section>
 
 <div class="fixed">
@@ -47,7 +50,7 @@ input,textarea,select{width:100%;padding:8px;margin:6px 0}
 </div>
 
 <script>
-const wa="6281234567890";
+const wa="628993686867";
 const items=[
 ["Beras",75000],["Minyak",18000],["Gula",17500],["Telur",31000],["Indomie",3500]
 ];
