@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WA Order Generator Demo</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f5f5f5}
+header{background:#ee4d2d;color:#fff;padding:18px;text-align:center}
+.banner{padding:18px;background:#fff;margin:10px;border-radius:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;padding:10px}
+.card{background:#fff;border-radius:10px;padding:10px;box-shadow:0 2px 6px #ddd}
+.img{height:90px;background:#ffe0d6;border-radius:8px;display:flex;align-items:center;justify-content:center}
+button{background:#ee4d2d;color:#fff;border:none;padding:6px 10px;border-radius:6px;cursor:pointer}
+section{background:#fff;margin:10px;padding:10px;border-radius:10px}
+input,textarea,select{width:100%;padding:8px;margin:6px 0}
+.fixed{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:10px;box-shadow:0 -2px 6px #ccc}
+</style>
+</head>
+<body>
+<header><h2>WA Order Generator Demo</h2></header>
+<div class="banner">
+<h3>Toko Kelontong</h3>
+<p>Pesan kebutuhan Anda dengan mudah.</p>
+</div>
+<div class="grid" id="products"></div>
+
+<section>
+<h3>🛒 Keranjang</h3>
+<div id="cart"></div>
+<p><b>Total: Rp <span id="total">0</span></b></p>
+</section>
+
+<section>
+<h3>Checkout</h3>
+<input id="nama" placeholder="Nama Pemesan">
+<textarea id="catatan" placeholder="Catatan"></textarea>
+<select id="bayar">
+<option>COD</option>
+<option>Transfer Bank</option>
+</select>
+<p>Transfer: BCA 123456789 a.n. Toko Barokah</p>
+</section>
+
+<div class="fixed">
+<button onclick="sendWA()">Pesan via WhatsApp</button>
+</div>
+
+<script>
+const wa="6281234567890";
+const items=[
+["Beras",75000],["Minyak",18000],["Gula",17500],["Telur",31000],["Indomie",3500]
+];
+const qty=[0,0,0,0,0];
+const p=document.getElementById('products');
+function render(){
+p.innerHTML="";
+let cart="",total=0;
+items.forEach((it,i)=>{
+p.innerHTML+=`<div class='card'><div class='img'>📦</div><b>${it[0]}</b><br>Rp ${it[1].toLocaleString()}<br>
+<button onclick='chg(${i},-1)'>-</button> ${qty[i]} <button onclick='chg(${i},1)'>+</button></div>`;
+if(qty[i]>0){cart+=`${it[0]} x${qty[i]}<br>`; total+=qty[i]*it[1];}
+});
+document.getElementById("cart").innerHTML=cart||"Belum ada pesanan";
+document.getElementById("total").innerText=total.toLocaleString();
+}
+function chg(i,v){qty[i]=Math.max(0,qty[i]+v);render();}
+function sendWA(){
+let txt="Halo, saya ingin memesan:%0A";
+let total=0;
+items.forEach((it,i)=>{if(qty[i]>0){txt+=`- ${it[0]} x${qty[i]}%0A`; total+=qty[i]*it[1];}});
+txt+=`%0ATotal: Rp ${total}%0ANama: ${nama.value}%0APembayaran: ${bayar.value}%0ACatatan: ${catatan.value}`;
+window.open(`https://wa.me/${wa}?text=${txt}`,'_blank');
+}
+render();
+</script>
+</body>
+</html>
